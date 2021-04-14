@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>Menu</title>
+	<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+	<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+	<link rel="manifest" href="manifest.webmanifest">
+	<script src="js/a2h.js" defer></script>
+</head>
+
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+	<button class="add-button" style="display: none;">Add to home screen</button>
+	<a-scene embedded arjs='sourceType: webcam; ; debugUIEnabled: false;' >
+		<a-image src="images/circle1.png" rotation="-90 0 0" position="0 0 0" height="4" width="4">
+			<a-animation attribute="rotation" 
+			dur="6000" to="-90 360 0" 
+			repeat="indefinite" 
+			easing="linear"></a-animation>
+		</a-image>
+
+		<a-image src="images/circle2.png" rotation="-90 0 0" position="0 0.3 0" height="3.2" width="3.2">
+			<a-animation attribute="rotation" 
+			dur="3000" to="-90 360 0" 
+			repeat="indefinite" 
+			easing="linear"></a-animation>
+		</a-image>
+
+		<a-image src="images/maruCircle.png" rotation="-90 0 0" position="0 0.5 0"  height="3" width="3"></a-image>
+		<a-marker-camera type="pattern" url="data/marker.patt" smooth="True" smoothCount="12" smoothTolerance="0.1" smoothThreshold="6"></a-marker-camera>
+	</a-scene>
+</body>
+</html>
