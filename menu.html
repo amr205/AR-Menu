@@ -11,8 +11,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
     <!-- import A-FRAME and AR.JS script -->
-	<script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+	<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+	<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 
     <!-- import custom CSS -->
@@ -33,16 +33,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("menuContainer").style.display = "none"; 
             $("#tacosCP").hide()
+            $("#pastaAF").hide()
+            $("#pastaCA").hide()
         }, false);
     </script>
 
     <!-- CLICK EVENTS script -->
     <script>
         AFRAME.registerComponent('markerhandler', {
-        
             init: function() {
-                const animatedMarker = document.querySelector("#animated-marker");
-                const aEntity = document.querySelector("#animated-model");
+                const animatedMarker = document.querySelector("#markerA");
+                const aEntity = document.querySelector("#menuA1");
         
                 // every click, we make our model grow in size :)
                 animatedMarker.addEventListener('click', function(ev, target){
@@ -52,22 +53,55 @@
                     }
                 });
         }});
+
+        AFRAME.registerComponent('markerhandler4', {
+            init: function() {
+                const animatedMarker = document.querySelector("#markerD");
+                const aEntity = document.querySelector("#menuD1");
+                const aEntity2 = document.querySelector("#menuD2");
+        
+                // every click, we make our model grow in size :)
+                animatedMarker.addEventListener('click', function(ev, target){
+                    const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
+                    if (aEntity && intersectedElement === aEntity) {
+                        displayMenu("pastaAF")
+                    }
+
+                    if (aEntity2 && intersectedElement === aEntity2) {
+                        displayMenu("pastaCA")
+                    }
+                });
+        }});
+
     </script>
 
 </head>
 
 <body style='margin : 0px; overflow: hidden;'>
 	 <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
-		<a-marker markerhandler emitevents="true" cursor="rayOrigin: mouse" id="animated-marker" type="pattern" url="data/letterA.patt">
-		    
-		    <a-image src="images/circle.png" rotation="-90 0 0" position="0 0 0" height="1.2" width="1.2">
-    			<a-animation attribute="rotation" 
-    			dur="3000" to="-90 360 0" 
-    			repeat="indefinite" 
-    			easing="linear"></a-animation>
-    		</a-image>
-    
-    		<a-image id="animated-model" src="images/plus.png" rotation="-90 0 0" position="0 0.3 0" height="1" width="1"></a-image>
+		<a-marker markerhandler emitevents="true" cursor="rayOrigin: mouse; fuse:false;" id="markerA" type="pattern" url="data/letterA.patt">
+
+    		<a-image id="menuA1" src="images/plus4.png" rotation="-90 0 0" position="-1.7 0 1.7" height="2" width="3"></a-image>
+    		<a-image id="menuA2" src="images/plus4.png" rotation="-90 0 0" position="-1.7 0.15 3.4" height="2" width="3"></a-image>
+    		<a-image id="menuA3" src="images/plus4.png" rotation="-90 0 0" position="-1.7 0.3 5" height="2" width="3"></a-image>
+		</a-marker>
+
+        <a-marker markerhandler2 emitevents="true" cursor="rayOrigin: mouse; fuse:false;" id="markerB" type="pattern" url="data/letterB.patt">
+
+    		<a-image id="menuB1" src="images/plus4.png" rotation="-90 0 0" position="-1.7 0 1.7" height="2" width="3"></a-image>
+    		<a-image id="menuB2" src="images/plus4.png" rotation="-90 0 0" position="-1.7 0.15 3.4" height="2" width="3"></a-image>
+		</a-marker>
+
+        <a-marker markerhandler3 emitevents="true" cursor="rayOrigin: mouse; fuse:false;" id="markerC" type="pattern" url="data/letterC.patt">
+
+    		<a-image id="menuC1" src="images/plus4.png" rotation="-90 0 0" position="-1.7 0 1.7" height="2" width="3"></a-image>
+		</a-marker>
+
+        <a-marker markerhandler4 emitevents="true" cursor="rayOrigin: mouse; fuse:false;" id="markerD" type="pattern" url="data/letterD.patt">
+
+    		<a-image id="menuD1" src="images/plus4.png" rotation="-90 0 0" position="-1.7 0 1.7" height="2" width="3"></a-image>
+    		<a-image id="menuD2" src="images/plus4.png" rotation="-90 0 0" position="-1.7 0.15 3.4" height="2" width="3"></a-image>
+    		<a-image id="menuD3" src="images/plus4.png" rotation="-90 0 0" position="-1.7 0.3 5" height="2" width="3"></a-image>
 		</a-marker>
 		<a-entity camera></a-entity>
 	</a-scene>
@@ -81,19 +115,44 @@
 					</div>
 					<h5 class="card-title mt-2">Tacos de cochinita pibil</h5>
 					<p class="card-text">
-						Ingredientes
-						<ul>
-							<li>Pollo</li>
-							<li>Achiote</li>
-							<li>Jugo de naranja</li>
-							<li>Chile huajillo</li>
-							<li>Oregano</li>
-						</ul>
+						Deliciosos tacos de cochinita pibil estilo veracruzano
 					</p>
 					<a href="javascript:closeMenu('tacosCP');" class="btn btn-outline-primary" id="cpCerrar">Cerrar</a>
 				</div>
 			</div>
 		</div>
+
+        <div id="pastaAF">
+			<div class="container">
+				<div class="card p-2 mt-5 menuElement">
+					<div class="row">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Sk9HCxfIREo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</div>
+					<h5 class="card-title mt-2">Pasta alfredo</h5>
+					<p class="card-text">
+						Prueba la famosa salsa Alfredo con su particular textura cremosa y sabor a queso, está de ¡escándalo!
+					</p>
+					<a href="javascript:closeMenu('tacosCP');" class="btn btn-outline-primary" id="cpCerrar">Cerrar</a>
+				</div>
+			</div>
+		</div>
+
+        <div id="pastaCA">
+			<div class="container">
+				<div class="card p-2 mt-5 menuElement">
+					<div class="row">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Sk9HCxfIREo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</div>
+					<h5 class="card-title mt-2">Pasta Carbonara</h5>
+					<p class="card-text">
+						Prueba la famosa salsa Carbonara con su particular textura cremosa y sabor a queso, está de ¡escándalo!
+					</p>
+					<a href="javascript:closeMenu('tacosCP');" class="btn btn-outline-primary" id="cpCerrar">Cerrar</a>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
 </body>
 </html>
